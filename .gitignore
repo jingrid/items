@@ -68,8 +68,8 @@ sftp-config.json
 
 #maven
 target
-src/main/webapp/WEB-INF/classes
-src/main/webapp/WEB-INF/lib
+src/main/webapp/WEB-INF/classes/*
+src/main/webapp/WEB-INF/lib/*
 
 ### WebStorm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
