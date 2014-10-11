@@ -10,8 +10,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </a>
-    <a class="brand" href="#">
-    <div class="r-beta">BETA</div>
+    <a class="brand" href="">
         <div style="color: #ffffff;font-weight: bold;"><s:message code="app.name" /></div>
     </a>
     
@@ -24,12 +23,12 @@
                  -->
             </li>
             <li class="${headMenuActive=='home'?'active':''}">
-                <a href="../../open/portal/main" class="r-link"><s:message code="app.home" /></a>
+                <a href="../../public/portal/main" class="r-link"><s:message code="app.home" /></a>
             </li>
             
             <c:if test="${signinStatus}">
             <li class="${headMenuActive=='site'?'active':''}">
-                <a href="../../site/portal/main" class="r-link"><s:message code="app.myhome" /></a>
+                <a href="../../public/portal/main" class="r-link"><s:message code="app.myhome" /></a>
             </li>
             <li class="${headMenuActive=='bss'?'active':''}">
                 <a href="../../bss/portal/main" class="r-link">运营与支持</a>

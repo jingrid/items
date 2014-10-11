@@ -1,13 +1,13 @@
 #foot
-app.name=联客
-app.copyright=&copy; 2012 RealPaaS
+app.name=我学
+app.copyright=&copy; 2014 JingGe
 app.license.tag=京ICP备 10120120
 app.about.company=关于我们
-app.about.product=关于联客
+app.about.product=关于我学
 app.privacy.terms=隐私与服务条款
 
-app.title=联客
-app.about.copyright=&copy; 2012 RealPaaS
+app.title=我学
+app.about.copyright=&copy; 2014 JingGe
 app.about.service.terms=服务协议
 app.about.privacy.terms=隐私条款
 app.about.contact=联系方式

@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="../../resources/components/bootstrap/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../../resources/components/bootstrap/bootstrap/css/bootstrap-responsive.css">
     <!--
-    <link rel="stylesheet" href="../../resources/rui/css/rui.css">
     -->
+    <link rel="stylesheet" href="../../resources/rui/css/rui.css">
     <style type="text/css">
 
     </style>

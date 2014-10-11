@@ -11,12 +11,11 @@
     <meta name="author" content="">
     <title><s:message code="app.title" /></title>
     <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../../common/resources/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../../common/resources/bootstrap/css/bootstrap-responsive.css">
-    <!-- 
-    <link rel="stylesheet" href="../../common/resources/jquery/theme/cupertino/jquery-ui-1.8.custom.css">
+    <link rel="stylesheet" href="../../resources/components/bootstrap/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../resources/components/bootstrap/bootstrap/css/bootstrap-responsive.css">
+    <!--
     -->
-    <link rel="stylesheet" href="../../common/resources/rui/css/rui.css">
+    <link rel="stylesheet" href="../../resources/rui/css/rui.css">
     <style type="text/css">
 
     </style>
@@ -26,12 +25,11 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script src="../../common/resources/jquery/script/jquery-1.7.1.js"></script>
-    <script src="../../common/resources/bootstrap/js/bootstrap.js"></script>
-    <script src="../../common/resources/jquery/script/jquery-ui-1.8.17.custom.min.js"></script>
-    <script src="../../common/resources/jquery/script/jquery.crypt.js"></script>
-    <script src="../../common/resources/jquery/script/jquery.cookie.js"></script>
-    <script src="../../common/resources/rui/js/rui.js"></script>
+    <script src="../../resources/components/jquery/jquery.js"></script>
+    <script src="../../resources/components/bootstrap/bootstrap/js/bootstrap.js"></script>
+<!--
+    <script src="../../resources/rui/js/rui.js"></script>
+-->
     <script>
         $(document).ready(function(){
             Rui.page.init();
@@ -40,7 +38,8 @@
 </head>
 <body>
 <div>
-<c:set var="headMenuActive" value="myHome" />
+<c:set var="headMenuActive" value="home" />
+<c:set var="publicPage" value="true" />
 <%@include file="../portal/head.jsp" %>
 
 

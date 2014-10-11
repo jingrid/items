@@ -1,12 +1,12 @@
-app.name=Linker
-app.copyright=&copy; 2012 RealPaaS
+app.name=WoXue
+app.copyright=&copy; 2014 JingGe
 app.license.tag=ICP: BJ10120120
 app.about.company=About Us
-app.about.product=About Linker
+app.about.product=About WoXue
 app.privacy.terms=Privacy & Terms
 
-app.title=Linker
-app.about.copyright=&copy; 2012 RealPaaS
+app.title=WoXue
+app.about.copyright=&copy; 2014 JingGe
 app.about.service.terms=Service Terms
 app.about.privacy.terms=Privacy Terms
 app.about.contact=Contact Us

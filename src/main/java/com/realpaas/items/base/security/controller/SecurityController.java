@@ -32,7 +32,6 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.realpaas.platform.common.security.AuthenticationAdapter;
-import com.realpaas.platform.common.web.CookieHelper;
 import com.realpaas.platform.common.web.WebHelper;
 import com.realpaas.platform.core.identity.dataobject.DefaultUserAccess;
 import com.realpaas.platform.core.identity.dataobject.User;
@@ -57,7 +56,6 @@ import com.realpaas.platform.core.security.controller.SignupInfoValidator;
 import com.realpaas.platform.core.security.controller.SocialProviderSignInAttempt;
 import com.realpaas.platform.core.security.controller.SocialSignInController;
 import com.realpaas.platform.core.security.service.SecurityService;
-import com.realpaas.platform.framework.http.CookieManager;
 
 /**
  * <p>
@@ -367,7 +365,7 @@ public class SecurityController {
                 /*
                  * Set autoSignToken cookie
                  */
-                CookieManager cm = CookieHelper.getCookieManager( request, response, domain );
+//                CookieManager cm = CookieHelper.getCookieManager( request, response, domain );
 //                updateAutoSigninCookie( cm, signwithInfo.getUsername(), signwithInfo.getPassword() );
                 
                 if( WebHelper.hasTargetUrl( request ) ){
