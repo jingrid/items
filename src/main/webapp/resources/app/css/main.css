@@ -1,0 +1,59 @@
+@CHARSET "UTF-8";
+html{
+    height: 100%;
+}
+
+body {
+    margin: 0px 0px 0px 0px;
+    font-size: 14px;
+    font-family: "Microsoft Yahei","微软雅黑",Tahoma,Arial,Helvetica,STHeiti;
+    background-color: #EDEDEF;
+    height: 100%;
+}
+
+table, tbody, tr, td, th {
+    border: 0px;
+    border-collapse: collapse;
+	padding: 0px;
+    margin: 0px;
+}
+
+.r-triangle-l, .r-triangle-r, .r-triangle-t, .r-triangle-b, .r-triangle-lt, .r-triangle-lb, .r-triangle-rt, .r-triangle-rb {display:block;height:0px;width:0px;border-color:transparent;border-style:dashed;border-width:10px;overflow:hidden;/*ie6 for bug*/}        
+.r-triangle-l{
+    border-left-color: #69F;
+    border-left-style: solid; /*ie6 for dashed bug */
+}
+.r-triangle-r{
+    border-right-color: #69F;
+    border-right-style: solid; /*ie6 for dashed bug */
+}
+.r-triangle-t{
+    border-top-color: #69F;
+    border-top-style: solid; /*ie6 for dashed bug */
+}
+.r-triangle-b{
+    border-bottom-color: #69F;
+    border-bottom-style: solid; /*ie6 for dashed bug */
+}
+.r-triangle-lt{
+    border-left-color: #FFF;
+    border-left-style: solid; /*ie6 for dashed bug */
+    border-width: 0px 0px 20px 20px;
+}
+.r-triangle-lb{
+    border-bottom-color: #FFF;
+    border-bottom-style: solid; /*ie6 for dashed bug */
+    border-width: 0px 20px 20px 0px;
+}
+.r-triangle-rt{
+    border-top-color: #FFF;
+    border-top-style: solid; /*ie6 for dashed bug */
+    border-width: 20px 0px 0px 20px;
+}
+.r-triangle-rb{
+    border-right-color: #FFF;
+    border-right-style:solid; /*ie6 for dashed bug */
+    border-width: 20px 20px 0px 0px;
+}
+
+

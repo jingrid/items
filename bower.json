@@ -1,0 +1,14 @@
+{
+    "name": "items",
+    "version": "0.1",
+    "main": [],
+    "dependencies": {
+        "seajs": "~2.3.0",
+        "jquery": "~1.10.2",
+        "jquery.cookie": "~1.4.1",
+        "underscore": "~1.7.0",
+        "backbone": "~1.1.2",
+        "bootstrap": "2.3.2",
+        "font-awesome": "~4.2.0"
+    }
+}

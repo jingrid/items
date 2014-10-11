@@ -1,0 +1,17 @@
+echo on
+echo creating dataobject
+echo creating dao
+echo creating dao\hibernate
+echo creating service
+echo creating service\impl
+echo creating setup
+echo creating controller
+
+
+mkdir dataobject
+mkdir dao
+mkdir dao\hibernate
+mkdir service
+mkdir service\impl
+mkdir setup
+mkdir controller

@@ -1,0 +1,60 @@
+        
+<form id="queryForm" action="./job-list" method="post"></form>
+
+<div>
+    <button ng-click="newJob()" class="btn ">新作业</button>
+    <a href="#/job-new" class="btn btn-primary">新作业</a>
+<div>
+<table class="table table-condensed">
+<caption></caption>
+<thead>
+   <tr style="vertical-align: top;" class="table-header-row">
+        <th width="10px" class="unsortable">
+            # <span class="sort-handle">
+        </th>
+        <th width="100px" class="unsortable"> 数据状态   <span class="sort-handle"></span></th>
+        <th width="150px" class="sortable">作业名称  <span class="sort-handle"></span></th>
+        <th width="150px" class="asc"> 执行对象 <span class="sort-handle"></span></th>
+        <th width="200px" class="asc"> 描述 <span class="sort-handle"></span></th>
+        <th width="130px"  class="unsortable"> 操作 <span class="sort-handle"></span></th>
+    </tr>
+</thead>
+<tbody>
+    <tr ng-repeat="item in jobs | filter:search | orderBy:'name'">
+        <td>
+            {{$index+1}} <input type="hidden" value="{{item.id}}">
+        </td>
+        <td>
+            <a href="../user-detail?id=${user.id}">{{item.lifeFlag}}</a>    
+        </td>
+        <td>
+            <a href="../user-detail?id=${user.id}">{{item.name}}</a>
+        </td>
+        <td>
+            <a href="../user-detail?id=${user.id}">{{item.beanName}}</a>
+        </td>
+        <td>
+            {{item.description}}
+        </td>
+        <td class="column-action">
+            <a href="#" class="edit"><i class="icon-edit"></i> <small>Edit</small></a>
+            <br><a href="#" class="remove"><i class="icon-remove"></i> <small>Delete</small></a>
+        </td>
+    </tr>
+</tbody>
+</table>
+<!-- 
+ -->
+<select>
+    <option ng-repeat="item in jobDescriptors" value="{{item.beanName}}">{{item.name}}</option>
+</select>
+<div class="pagination">
+  <ul>
+    <li><a href="#">Prev</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">Next</a></li>
+  </ul>
+</div>        

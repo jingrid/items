@@ -1,0 +1,112 @@
+app.name=Linker
+app.copyright=&copy; 2012 RealPaaS
+app.license.tag=ICP: BJ10120120
+app.about.company=About Us
+app.about.product=About Linker
+app.privacy.terms=Privacy & Terms
+
+app.title=Linker
+app.about.copyright=&copy; 2012 RealPaaS
+app.about.service.terms=Service Terms
+app.about.privacy.terms=Privacy Terms
+app.about.contact=Contact Us
+app.about.us=About Us
+app.about.sitemap=Site Map
+app.about.icp=ICP: BJ10120120
+
+app.home=Home
+app.myhome=My Home
+app.piazza=Plazza
+
+app.myfavorites=My Favorites
+app.messages=Messages
+app.settings=Settings
+app.account=Account
+app.authorize=Authorize
+app.manage=Manage
+
+app.systemerror=System Error
+app.close=Close
+
+app.viewprofile=View Profile
+app.signin=Sign in
+app.signout=Sign out
+app.exit=Exit
+app.signup=Sign up
+app.getbackpwd=Get back password
+app.resetpwd=Reset password
+app.changepwd=Change password
+app.autosignin=Auto signin
+app.autosignin.statement=Stay signed in
+app.lastsignintime=Last signin time
+
+
+
+
+app.signin.error=Username or Password is wrong
+app.resetpassword.thesame=New Password is the same as old password
+app.resetpassword.nousername=Username does not exist
+app.changepassword.thesame=New Password is the same as old password
+app.changepassword.nousername=Username does not exist
+app.changepassword.wrongoldpassword=Wrong old password
+
+
+app.username=Username
+app.username.null=Username must not be blank
+app.username.illegal=Please enter a valid email or cellphone number
+app.username.wrong=Username "{0}" does not exist
+app.username.hint=Email address or cellphone number
+app.username.existent=Username exists, change another username, please
+app.username.non-existent=This username can be used
+app.password=Password
+app.oldpassword=Old Password
+app.password.null=Password must not be blank
+app.password.illegal=Password contains illegal characters
+app.password.wrong=Wrong password
+app.password.hint=Use a different password from email password
+app.passwordconfirm.same=Confirmed
+app.passwordconfirm.diff=Different, please input it again
+app.passwordconfirm=Confirm Password
+app.passwordconfirm.hint=Type password again
+app.email=Email
+app.email.null=Email must not be blank
+app.email.illegal=Please enter a valid email address
+app.email.hint=Valid email address
+app.displayname=Display Name
+app.displayname.hint=Your favorite Display Name
+
+app.getbackpwd.error=Username doesn't exist
+app.getbackpwd.reset.hint=Click here to go resetting your password
+
+
+app.registration=Signup
+app.registration.temp=Temp Signup
+app.agreement=Service & Privacy Term
+app.agreement.agree=I Agree
+app.agreement.uri=../app/agreement_en.txt
+app.agreement.download=Download Agreement
+
+app.pwdstr=Password Strength
+app.pwdstr.blank=Blank
+app.pwdstr.tooshort=Too short
+app.pwdstr.weak=Weak
+app.pwdstr.medium=Medium
+app.pwdstr.strong=Strong
+app.pwdstr.verystrong=Very strong
+
+weibo.displayName=Sina Microblog
+weibo.icon=sina-weibo.png
+tencent.displayName=Tencent Microblog
+tencent.icon=tencent-weibo.png
+renren.displayName=RenRen
+renren.icon=renren.png
+live.displayName=MSN Live
+live.icon=live.png
+salesforce.displayName=Salesforce
+salesforce.icon=salesforce.png
+linkedin.displayName=Linkedin
+linkedin.icon=linkedin.png
+facebook.displayName=Facebook
+facebook.icon=facebook.png
+twitter.displayName=Twitter
+twitter.icon=twitter.png

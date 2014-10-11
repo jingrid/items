@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:real="http://www.realpaas.com/schema/system"
+    xsi:schemaLocation=
+          "http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.1.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+           http://www.realpaas.com/schema/system
+           http://www.realpaas.com/schema/system/spring-system-1.0.xsd"
+    default-autowire="byName" default-lazy-init="true">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.realpaas" >
+        <context:exclude-filter type="regex" expression=".*controller.*Controller$"/>
+    </context:component-scan>
+    
+    <real:system/>
+    
+<!-- 
+    <context:property-placeholder location="classpath:realpaas.properties"/>
+ -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+       <property name="locations" >
+           <list>
+               <value>classpath:realpaas.properties</value>
+               <value>classpath:realpaas-web.properties</value>
+           </list>
+       </property>
+    </bean>
+    <util:properties id="sysProps" location="classpath:realpaas.properties" />
+    
+    <!-- 
+    org.springframework.context.support.ResourceBundleMessageSource
+    org.springframework.context.support.ReloadableResourceBundleMessageSource
+        <property name="defaultEncoding" value="UTF-8" />
+     -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>i18n/AppResource</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<!-- Connection properties -->
+		<property name="driverClass" value="${rdb.main.driverClassName}" />
+		<property name="jdbcUrl" value="${rdb.main.url}" />
+		<property name="user" value="${rdb.main.username}" />
+        <property name="password" value="${rdb.main.password}" />
+		
+		<!-- Pool properties -->
+        <property name="minPoolSize" value="${rdb.main.minPoolSize}" />
+        <property name="maxPoolSize" value="${rdb.main.maxPoolSize}" />
+        <property name="maxStatements" value="${rdb.main.maxStatements}" />
+        <property name="idleConnectionTestPeriod" value="${rdb.main.idleConnectionTestPeriod}" />
+        <property name="loginTimeout" value="${rdb.main.loginTimeout}" />
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" lazy-init="false">
+        <property name="dataSource"><ref local="dataSource"/></property>
+        <property name="schemaUpdate" ><value>${hibernate.schemaUpdate}</value></property>
+        <property name="annotatedPackages">
+            <list>
+                <value>com.realpaas</value>
+            </list>
+        </property>
+        <property name="packagesToScan">
+            <list>
+                <value>com.realpaas</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <!-- 
+                <prop key="hibernate.default_schema">${rdb.main.schema}</prop>
+                <prop key="hibernate.default_catalog">${rdb.main.catalog}</prop>
+                <prop key="hibernate.cache.region.factory_class">com.lenovo.lois.framework.cache.ehcache.PlatformEhCacheRegionFactory</prop>
+                -->
+                <prop key="hibernate.dialect">${rdb.main.dialect}</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+                <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+                <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+                <prop key="hibernate.cache.region_prefix"></prop>
+                <prop key="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.max_fetch_depth">6</prop>
+                <prop key="hibernate.jdbc.batch_size">50</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Transaction Configuration For All Services (including Hibernate and MyBatis)-->
+    <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <!-- Transaction: enable annotation-driven transaction -->
+    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+    
+    <!-- High Performance Sequence Generator For ID -->
+    <bean id="keyedSequenceGeneratorForId" class="com.realpaas.platform.key.KeyedSequenceGeneratorImpl" init-method="init">
+        <property name="dataSource"><ref local="dataSource"/></property>
+        <property name="sequenceSchemaName"><value>${rdb.main.schema}</value></property>
+        <property name="sequenceTableName"><value>${id.sequence.table}</value></property>
+        <property name="initValue"><value>${id.sequence.initvalue}</value></property>
+        <property name="increment"><value>${id.sequence.increment}</value></property>
+    </bean>
+
+    <bean id="partitionedSequenceGeneratorForId" class="com.realpaas.platform.key.PartitionedSequenceGeneratorImpl" >
+        <property name="partitionKey"><value>${system.code}</value></property>
+        <property name="keyedSequenceGenerator"><ref local="keyedSequenceGeneratorForId"/></property>
+    </bean>
+    
+    <bean id="identifierInstantiator" class="com.realpaas.platform.ssos.core.dataobject.id.GenericIdentifierInstantiatorImpl" />
+    <bean id="identifierGenerator" class="com.realpaas.platform.framework.id.PlatformIdentifierGenerator" init-method="afterPropertiesSet">
+        <property name="suffix"><value>${system.serialNo}</value></property>
+        <property name="sequenceGenerator"><ref local="partitionedSequenceGeneratorForId"/></property>
+        <property name="identifierInstantiator"><ref local="identifierInstantiator"/></property>
+    </bean>
+    
+    <!-- High Performance Sequence Generator For Rank -->
+    <bean id="keyedSequenceGeneratorForRank" class="com.realpaas.platform.key.KeyedSequenceGeneratorImpl" init-method="init">
+        <property name="dataSource"><ref local="dataSource"/></property>
+        <property name="sequenceSchemaName"><value>${rdb.main.schema}</value></property>
+        <property name="sequenceTableName"><value>${rank.sequence.table}</value></property>
+        <property name="initValue"><value>${rank.sequence.initvalue}</value></property>
+        <property name="increment"><value>${rank.sequence.increment}</value></property>
+    </bean>
+
+    <bean id="partitionedSequenceGeneratorForRank" class="com.realpaas.platform.key.PartitionedSequenceGeneratorImpl" >
+        <property name="partitionKey"><value>${system.code}</value></property>
+        <property name="keyedSequenceGenerator"><ref local="keyedSequenceGeneratorForRank"/></property>
+    </bean>
+
+    <!-- High Performance Sequence Generator For High-Volume Objects (Files, Tasks, etc) -->
+    <bean id="keyedSequenceGeneratorForVolumeObjectID" class="com.realpaas.platform.key.KeyedSequenceGeneratorImpl" init-method="init">
+        <property name="dataSource"><ref local="dataSource"/></property>
+        <property name="sequenceSchemaName"><value>${rdb.main.schema}</value></property>
+        <property name="sequenceTableName"><value>${void.sequence.table}</value></property>
+        <property name="initValue"><value>${void.sequence.initvalue}</value></property>
+        <property name="increment"><value>${void.sequence.increment}</value></property>
+    </bean>
+
+    <bean id="partitionedSequenceGeneratorForVolumeObjectID" class="com.realpaas.platform.key.PartitionedSequenceGeneratorImpl" >
+        <property name="partitionKey"><value>${system.code}</value></property>
+        <property name="keyedSequenceGenerator"><ref local="keyedSequenceGeneratorForVolumeObjectID"/></property>
+    </bean>
+
+    <bean id="fileSequenceGenerator" class="com.realpaas.platform.key.OneSequenceGeneratorImpl" >
+        <property name="sequenceKey"><value>file</value></property>
+        <property name="keyedSequenceGenerator"><ref local="partitionedSequenceGeneratorForVolumeObjectID"/></property>
+    </bean>
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxActive"  value="${redis.main.maxActive}" />
+        <property name="maxIdle" value="${redis.main.maxIdle}" />
+        <property name="maxWait" value="${redis.main.maxWait}" />
+        <property name="testOnBorrow"  value="${redis.main.testOnBorrow}"/>
+    </bean>
+    
+    <bean id="jedisShardInfo" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg index="0" value="${redis.main.host}" />
+        <constructor-arg index="1" type="int" value="${redis.main.port}" />
+    </bean>
+
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" >
+        <property name="shardInfo"  ref="jedisShardInfo"/>
+        <property name="poolConfig"  ref="jedisPoolConfig"/>
+        <property name="usePool"  value="true"/>
+    </bean>
+    
+    <!-- String Redis template definition -->
+    <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate" >
+        <property name="connectionFactory"  ref="jedisConnectionFactory" />
+    </bean>
+    
+    <!-- Long Redis template definition -->
+    <bean id="longRedisTemplate" class="com.realpaas.platform.common.dao.redis.LongRedisTemplate" >
+        <property name="connectionFactory"  ref="jedisConnectionFactory" />
+    </bean>
+    
+    <bean id="timeFactory" class="com.realpaas.platform.time.PlatformTimeFactory" />
+
+    <bean id="systemTimeGenerator" class="com.realpaas.platform.ssos.ext.common.SystemTimeGenerator">
+        <property name="timeFactory"><ref local="timeFactory"/></property>
+        <property name="systemTimeZoneCode"><value>${system.timezone}</value></property>
+    </bean>
+
+    <bean id="createdTimeTrigger" class="com.realpaas.platform.ssos.ext.dao.hibernate.CreatedTimeTrigger">
+        <property name="timeGenerator"><ref local="systemTimeGenerator"/></property>
+    </bean>
+
+    <bean id="updatedTimeTrigger" class="com.realpaas.platform.ssos.ext.dao.hibernate.UpdatedTimeTrigger">
+        <property name="timeGenerator"><ref local="systemTimeGenerator"/></property>
+    </bean>
+
+    <bean id="rankTrigger" class="com.realpaas.platform.ssos.ext.dao.hibernate.RankTrigger">
+        <property name="sequenceGenerator"><ref local="partitionedSequenceGeneratorForRank"/></property>
+        <property name="incrementMultiple"><value>${rank.sequence.increment.multiple}</value></property>
+    </bean>
+
+    <util:list id="stockBeforeCreatingTriggers"> 
+        <ref bean="createdTimeTrigger"/>  
+        <ref bean="rankTrigger"/>  
+    </util:list>
+
+    <util:list id="stockBeforeUpdatingTriggers"> 
+        <ref bean="updatedTimeTrigger"/>  
+    </util:list>
+    
+
+</beans>

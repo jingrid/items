@@ -1,0 +1,1 @@
+<%@tag language="java" pageEncoding="UTF-8" %><%@tag import="com.realpaas.platform.common.web.LocaleHelper"%><%=LocaleHelper.getLocaleCode( request )%>

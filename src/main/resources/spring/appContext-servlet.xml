@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation=
+          "http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd"
+    default-autowire="byName" default-lazy-init="true">
+    
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	   <property name="locations" >
+	       <list>
+               <value>classpath:realpaas-web.properties</value>
+	       </list>
+	   </property>
+	</bean>
+    <!-- 
+    <context:property-placeholder  location="classpath:security.properties"/>
+    <context:property-placeholder  location="classpath:social.properties"/>
+     -->
+    <util:properties id="webProps" location="classpath:realpaas-web.properties" />
+    
+    <!-- Support for @Autowire. -->
+    <!-- 
+     -->
+    <context:annotation-config/>
+    <context:component-scan base-package="com.realpaas" use-default-filters="false" >
+        <context:include-filter type="regex" expression=".*controller.*Controller$"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
+    </context:component-scan>
+    
+     <!-- 
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:i18n</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+     -->
+    
+    <!-- @Controller, @Service, @Configuration, etc. -->
+ 
+     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources/ directory -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/common/resources/**" location="/common/resources/" />
+    <mvc:resources mapping="/public/resources/**" location="/public/resources/" />
+    <mvc:resources mapping="/bss/resources/**" location="/bss/resources/" />
+    <mvc:resources mapping="/oss/resources/**" location="/oss/resources/" />
+    <mvc:resources mapping="/tss/resources/**" location="/tss/resources/" />
+ 
+     <!-- 
+     -->
+    <mvc:view-controller path="/" view-name="" />
+ 
+    <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /platform directory -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    
+    <!-- Enables the Spring MVC @Controller programming model -->
+    <!-- 
+    <mvc:annotation-driven />
+    <mvc:default-servlet-handler/>
+    -->
+    
+    <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+    </bean>
+
+    <bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+        <property name="conversionService" ref="conversionService" />
+    <!--
+        <property name="validator" ref="" />
+        <property name="messageCodesResolver" ref="" />
+    -->
+    </bean>
+
+    <bean id="methodAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="webBindingInitializer" ref="webBindingInitializer" />
+        <property name="messageConverters">
+            <util:list>
+                <ref bean="byteArrayHttpMessageConverter" />
+                <ref bean="stringHttpMessageConverter" />
+                <ref bean="resourceHttpMessageConverter" />
+                <ref bean="sourceHttpMessageConverter" />
+                <ref bean="xmlAwareFormHttpMessageConverter" />
+                <ref bean="jaxb2RootElementHttpMessageConverter" />
+                <ref bean="mappingJacksonHttpMessageConverter" />
+                <ref bean="AtomFeedHttpMessageConverter" />
+                <ref bean="RssChannelHttpMessageConverter" />
+            </util:list>
+        </property>
+        <property name="customArgumentResolvers">
+            <util:list>
+            </util:list>
+        </property>
+        <property name="customReturnValueHandlers">
+            <util:list>
+            </util:list>
+        </property>
+    </bean>
+    
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" >
+    </bean>
+    
+    <bean id="performanceTracker" class="com.realpaas.platform.common.interceptor.LinkerInterceptor" />
+    
+    <bean id="csInterceptor" class="org.springframework.web.servlet.handler.ConversionServiceExposingInterceptor" >
+        <constructor-arg><ref bean="conversionService"/></constructor-arg>
+    </bean>
+    
+    <bean id="mappedInterceptor" class="org.springframework.web.servlet.handler.MappedInterceptor" >
+        <constructor-arg><null/></constructor-arg>
+        <constructor-arg><ref bean="csInterceptor"/></constructor-arg>
+    </bean>
+    
+    <bean id="responseStatusExceptionResolver" class="org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver">
+        <property name="order" value="1" />
+    </bean>
+    
+    <bean id="defaultHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver">
+        <property name="order" value="2" />
+    </bean>
+    
+    <!-- Configure the multipart resolver -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10000000"/>
+    </bean>
+    
+    <!-- 
+        Registered HttpMessageConverter
+     -->
+    <bean id="byteArrayHttpMessageConverter" class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+
+    <bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter" >
+        <property name="writeAcceptCharset" value="false" />
+    </bean>
+
+    <bean id="resourceHttpMessageConverter" class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+
+    <bean id="sourceHttpMessageConverter" class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+
+    <bean id="xmlAwareFormHttpMessageConverter" class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter"/>
+
+    <bean id="jaxb2RootElementHttpMessageConverter" class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
+
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+
+    <bean id="AtomFeedHttpMessageConverter" class="org.springframework.http.converter.feed.AtomFeedHttpMessageConverter"/>
+
+    <bean id="RssChannelHttpMessageConverter" class="org.springframework.http.converter.feed.RssChannelHttpMessageConverter"/>
+
+    <!--
+	<bean id="marshallingHttpMessageConverter" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+	    <property name="marshaller" ref="castorMarshaller" />
+	    <property name="unmarshaller" ref="castorMarshaller" />
+	</bean>
+	<bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller"/>
+    -->
+    
+    <!--  
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="zh_CN" />
+    </bean>
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="cookieName" value="locale" />
+        <property name="cookieMaxAge" value="100000" />
+    </bean>
+    
+    -->
+ 
+    <bean id="localeResolver" class="com.realpaas.platform.common.web.PlatformLocaleResolver">
+        <property name="defaultLocaleCode" value="zh_CN" />
+        <property name="cookieName" value="locale" />
+        <property name="cookieMaxAge" value="100000" />
+    </bean>
+ 
+	<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*" />
+            <bean class="com.realpaas.platform.common.interceptor.LinkerInterceptor" />
+        </mvc:interceptor>
+	    <mvc:interceptor>
+            <mvc:mapping path="/pp/change-locale" />
+		    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		        <property name="paramName" value="locale" />
+		    </bean>
+	    </mvc:interceptor>
+	</mvc:interceptors>
+
+	
+    <!--
+        TODO: HandlerExceptionResolver is needed here
+    -->
+
+</beans>

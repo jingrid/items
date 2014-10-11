@@ -1,0 +1,52 @@
+        
+<form id="queryForm" action="./job-list" method="post"></form>
+<table class="table table-condensed">
+<caption></caption>
+<thead>
+   <tr style="vertical-align: top;" class="table-header-row">
+        <th width="10px" class="unsortable">
+            # <span class="sort-handle">
+        </th>
+        <th width="80px" class="sortable">
+            Full Name <span class="sort-handle"></span>
+        </th>
+        <th width="150px" class="asc">
+            Email <span class="sort-handle"></span>
+        </th>
+        <th width="150px" class="unsortable">
+            Status <span class="sort-handle"></span>
+        </th>
+        <th width="130px"  class="unsortable">
+            Actions <span class="sort-handle"></span>
+        </th>
+    </tr>
+</thead>
+<tbody>
+    <tr ng-repeat="job in jobs | filter:search | orderBy:'name'">
+        <td >
+            1 <input type="hidden" value="{{job.id}}">
+        </td>
+        <td class="profile-cell">
+            <a href="../user-detail?id=${user.id}">{{job.name}}</a>    
+        </td>
+        <td >
+        </td>
+        <td >
+        </td>
+        <td class="column-action">
+            <a href="#" class="edit"><i class="icon-edit"></i> <small>Edit</small></a>
+            <br><a href="#" class="remove"><i class="icon-remove"></i> <small>Delete</small></a>
+        </td>
+    </tr>
+</tbody>
+</table>
+<div class="pagination">
+  <ul>
+    <li><a href="#">Prev</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">Next</a></li>
+  </ul>
+</div>        
