@@ -83,7 +83,7 @@ public final class UserAccessHelper {
      * @return true means valid, false means illegal password
      */
     public static boolean checkPasswordValidity( String password ){
-        final String PATTERN = "\\b(^[A-Za-z0-9]+$)\\b";
+        final String PATTERN = "\\b(^[A-Za-z0-9]+$)\\b"; //TODO: fix it later
         return password.matches( PATTERN );
     }
     
