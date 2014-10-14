@@ -1,0 +1,5 @@
+DROP DATABASE IF EXISTS items;
+CREATE DATABASE items;
+CREATE USER items@'localhost' IDENTIFIED BY 'items';
+GRANT ALL PRIVILEGES ON items.* TO items@'localhost';
+FLUSH PRIVILEGES;
