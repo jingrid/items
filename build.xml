@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="cp" default="ci">
+<project name="items" default="ci">	
 	<target name="ci">
+		<echo>preparing ci build....</echo>
+		<!--
 		<copy todir="src/main/resources" overwrite="true">
 		    <fileset dir="src/main/resources/properties/ci"/>
 	    </copy>
+		-->
 	</target>
 </project>
