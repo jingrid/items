@@ -6,7 +6,8 @@
 	<bean id="appContext" class="org.springframework.context.support.ClassPathXmlApplicationContext" lazy-init="true">
 		<constructor-arg>
 			<list>
-                <value>/spring/appContext.xml</value>
+                <value>/spring/profileContext-system.xml</value>
+                <value>/spring/systemContext-main.xml</value>
 			</list>
 		</constructor-arg>
 	</bean>
@@ -15,6 +16,7 @@
     <bean id="setupContext" class="org.springframework.context.support.ClassPathXmlApplicationContext" lazy-init="true">
         <constructor-arg>
             <list>
+                <value>/spring/profileContext-system.xml</value>
                 <value>/spring/setupContext.xml</value>
             </list>
         </constructor-arg>

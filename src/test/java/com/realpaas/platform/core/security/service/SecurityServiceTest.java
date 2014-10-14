@@ -65,6 +65,13 @@ public class SecurityServiceTest extends AbstractTest {
     
     private UserService userService;
 
+    public static void main(String[] args){
+        SecurityServiceTest test = new SecurityServiceTest();
+        test.setUp();
+        test.checkUsernameExistence();
+        test.tearDown();
+    }
+    
     @Override
     public void setUp() {
         userService = (UserService)BeanContextLoader.i().getBean( "userService" );

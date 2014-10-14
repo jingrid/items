@@ -68,10 +68,5 @@ public class SystemDataManagerTest extends AbstractTest {
     public void testUpdate() {
         systemDataManager.update();
     }
-
-//    @Test(groups = { "all", "setup" })
-    public void testReset() {
-//        systemDataManager.reset();
-    }
     
 }

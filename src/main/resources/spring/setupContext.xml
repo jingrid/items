@@ -21,15 +21,6 @@
            http://www.realpaas.com/schema/system/spring-system-1.0.xsd"
            
     default-autowire="byName" default-lazy-init="true">
-    
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:setup.properties</value>
-                <value>classpath:realpaas.properties</value>
-            </list>
-        </property>
-    </bean>
 
     <bean id="systemSetup" class="com.realpaas.platform.core.setup.SystemSetupFactory" lazy-init="false">
         <property name="dbms" value="${rdb.system.dbms}" />
