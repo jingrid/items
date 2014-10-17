@@ -1,6 +1,6 @@
 <%@tag language="java" pageEncoding="UTF-8" %>
-<%@tag import="com.realpaas.platform.core.i18n.dataobject.LocaleEntry"%>
-<%@tag import="com.realpaas.platform.common.web.LocaleHelper"%>
+<%@tag import="com.jingge.platform.core.i18n.dataobject.LocaleEntry"%>
+<%@tag import="com.jingge.platform.common.web.LocaleHelper"%>
 <%@tag import="java.util.*"%>
 
 <%@attribute name="id" required="false" %>

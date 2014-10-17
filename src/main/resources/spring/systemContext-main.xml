@@ -22,7 +22,7 @@
     default-autowire="byName" default-lazy-init="true">
 
     <context:annotation-config/>
-    <context:component-scan base-package="com.realpaas" >
+    <context:component-scan base-package="com.jingge" >
         <context:exclude-filter type="regex" expression=".*controller.*Controller$"/>
     </context:component-scan>
     
@@ -57,11 +57,13 @@
         <property name="annotatedPackages">
             <list>
                 <value>com.realpaas</value>
+                <value>com.jingge</value>
             </list>
         </property>
         <property name="packagesToScan">
             <list>
                 <value>com.realpaas</value>
+                <value>com.jingge</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -170,7 +172,7 @@
     </bean>
     
     <!-- Long Redis template definition -->
-    <bean id="longRedisTemplate" class="com.realpaas.platform.common.dao.redis.LongRedisTemplate" >
+    <bean id="longRedisTemplate" class="com.jingge.platform.common.dao.redis.LongRedisTemplate" >
         <property name="connectionFactory"  ref="jedisConnectionFactory" />
     </bean>
     

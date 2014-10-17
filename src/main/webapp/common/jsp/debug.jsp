@@ -1,8 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.realpaas.platform.framework.http.CookieManager"%>
-<%@page import="com.realpaas.platform.common.web.CookieHelper"%>
-<%@page import="com.realpaas.platform.common.web.LocaleHelper"%>
+<%@page import="com.jingge.platform.common.web.CookieHelper"%>
+<%@page import="com.jingge.platform.common.web.LocaleHelper"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.Set"%>

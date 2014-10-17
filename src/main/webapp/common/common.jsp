@@ -1,6 +1,6 @@
 <%@page session="false" %>
-<%@page import="com.realpaas.platform.common.security.PlatformAuthenticationToken"%>
-<%@page import="com.realpaas.platform.common.security.UserInformation"%>
+<%@page import="com.jingge.platform.common.security.PlatformAuthenticationToken"%>
+<%@page import="com.jingge.platform.common.security.UserInformation"%>
 <%@page import="org.springframework.security.authentication.AnonymousAuthenticationToken"%>
 <%@page import="org.springframework.security.core.Authentication"%>
 <%@page import="org.springframework.security.core.context.SecurityContextHolder"%>

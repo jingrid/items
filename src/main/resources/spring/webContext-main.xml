@@ -17,25 +17,12 @@
            http://www.springframework.org/schema/mvc
            http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd"
     default-autowire="byName" default-lazy-init="true">
-    
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-	   <property name="locations" >
-	       <list>
-               <value>classpath:realpaas-web.properties</value>
-	       </list>
-	   </property>
-	</bean>
-    <!-- 
-    <context:property-placeholder  location="classpath:security.properties"/>
-    <context:property-placeholder  location="classpath:social.properties"/>
-     -->
-    <util:properties id="webProps" location="classpath:realpaas-web.properties" />
-    
+        
     <!-- Support for @Autowire. -->
     <!-- 
      -->
     <context:annotation-config/>
-    <context:component-scan base-package="com.realpaas" use-default-filters="false" >
+    <context:component-scan base-package="com.jingge" use-default-filters="false" >
         <context:include-filter type="regex" expression=".*controller.*Controller$"/>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
     </context:component-scan>
@@ -116,7 +103,7 @@
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" >
     </bean>
     
-    <bean id="performanceTracker" class="com.realpaas.platform.common.interceptor.LinkerInterceptor" />
+    <bean id="performanceTracker" class="com.jingge.platform.common.interceptor.LinkerInterceptor" />
     
     <bean id="csInterceptor" class="org.springframework.web.servlet.handler.ConversionServiceExposingInterceptor" >
         <constructor-arg><ref bean="conversionService"/></constructor-arg>
@@ -182,7 +169,7 @@
     
     -->
  
-    <bean id="localeResolver" class="com.realpaas.platform.common.web.PlatformLocaleResolver">
+    <bean id="localeResolver" class="com.jingge.platform.common.web.PlatformLocaleResolver">
         <property name="defaultLocaleCode" value="zh_CN" />
         <property name="cookieName" value="locale" />
         <property name="cookieMaxAge" value="100000" />
@@ -191,7 +178,7 @@
 	<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/*" />
-            <bean class="com.realpaas.platform.common.interceptor.LinkerInterceptor" />
+            <bean class="com.jingge.platform.common.interceptor.LinkerInterceptor" />
         </mvc:interceptor>
 	    <mvc:interceptor>
             <mvc:mapping path="/pp/change-locale" />

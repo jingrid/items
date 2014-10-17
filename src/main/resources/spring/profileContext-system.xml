@@ -22,30 +22,30 @@
     default-autowire="byName" default-lazy-init="true">
 
     <beans profile="default">
-	    <bean id="profileIndicator" class="com.realpaas.platform.common.context.ProfileIndicator" lazy-init="false">
+	    <bean id="profileIndicator" class="com.jingge.platform.common.context.ProfileIndicator" lazy-init="false">
 	        <property name="profile"><value>default</value></property>
 	    </bean>
-        <context:property-placeholder location="classpath:realpaas.properties, 
+        <context:property-placeholder location="classpath:system.properties, 
                                                 classpath:setup.properties, 
-                                                classpath:realpaas-web.properties"/>  
-        <util:properties id="sysProps" location="classpath:realpaas.properties" />
+                                                classpath:web.properties"/>  
+        <util:properties id="sysProps" location="classpath:system.properties" />
     </beans>
     <beans profile="ci">
-        <bean id="profileIndicator" class="com.realpaas.platform.common.context.ProfileIndicator" lazy-init="false">
+        <bean id="profileIndicator" class="com.jingge.platform.common.context.ProfileIndicator" lazy-init="false">
             <property name="profile"><value>ci</value></property>
         </bean>
-        <context:property-placeholder location="classpath:profiles/ci/realpaas.properties, 
+        <context:property-placeholder location="classpath:profiles/ci/system.properties, 
                                                 classpath:profiles/ci/setup.properties, 
-                                                classpath:profiles/ci/realpaas-web.properties"/>  
-        <util:properties id="sysProps" location="classpath:profiles/ci/realpaas.properties" />
+                                                classpath:profiles/ci/web.properties"/>  
+        <util:properties id="sysProps" location="classpath:profiles/ci/system.properties" />
     </beans>
     <beans profile="prd">
-        <bean id="profileIndicator" class="com.realpaas.platform.common.context.ProfileIndicator" lazy-init="false">
+        <bean id="profileIndicator" class="com.jingge.platform.common.context.ProfileIndicator" lazy-init="false">
             <property name="profile"><value>prd</value></property>
         </bean>
-        <context:property-placeholder location="classpath:profiles/prd/realpaas.properties, 
+        <context:property-placeholder location="classpath:profiles/prd/system.properties, 
                                                 classpath:profiles/prd/setup.properties, 
-                                                classpath:profiles/prd/realpaas-web.properties"/>        
-        <util:properties id="sysProps" location="classpath:profiles/prd/realpaas.properties" />
+                                                classpath:profiles/prd/web.properties"/>        
+        <util:properties id="sysProps" location="classpath:profiles/prd/system.properties" />
     </beans>
 </beans>
